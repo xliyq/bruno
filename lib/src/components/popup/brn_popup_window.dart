@@ -486,7 +486,11 @@ class BrnPopupListWindow {
     VoidCallback? onDismiss,
   }) {
     TextStyle textStyle = TextStyle(
-        color: BrnThemeConfigurator.instance.getConfig().commonConfig.colorTextBase, fontSize: 16);
+        color: BrnThemeConfigurator.instance
+            .getConfig()
+            .commonConfig
+            .colorTextBase,
+        fontSize: 16);
     double arrowHeight = 6.0;
     Color borderColor = Color(0xffCCCCCC);
     Color backgroundColor = Colors.white;
@@ -497,8 +501,10 @@ class BrnPopupListWindow {
     double maxHeight = 200;
     double borderRadius = 4;
     bool hasCloseIcon = true;
-    assert(popKey.currentContext != null && popKey.currentContext!.findRenderObject() != null);
-    if (popKey.currentContext == null || popKey.currentContext!.findRenderObject() == null) return;
+    assert(popKey.currentContext != null &&
+        popKey.currentContext!.findRenderObject() != null);
+    if (popKey.currentContext == null ||
+        popKey.currentContext!.findRenderObject() == null) return;
     Navigator.push(
         context,
         BrnPopupRoute(
@@ -512,22 +518,24 @@ class BrnPopupListWindow {
           offset: offset,
           widget: BrunoTools.isEmpty(data)
               ? Container(
-                  constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
+                  constraints:
+                      BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
                 )
               : Container(
-                  constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
+                  constraints:
+                      BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
                   child: SingleChildScrollView(
                     child: Container(
                       padding: EdgeInsets.only(top: 6, bottom: 6),
                       child: Column(
-                        children:
-                            _getItems(context, minWidth, maxWidth, itemBuilder, textStyle, data!,
-                                (index, item) {
+                        children: _getItems(context, minWidth, maxWidth,
+                            itemBuilder, textStyle, data!, (index, item) {
                           if (onItemClick != null) {
                             bool isIntercept = onItemClick(index, item);
                             if (isIntercept) return;
                           }
-                          Navigator.pop(context, {'index': index, 'item': item});
+                          Navigator.pop(
+                              context, {'index': index, 'item': item});
                         }),
                       ),
                     ),
@@ -544,6 +552,7 @@ class BrnPopupListWindow {
     });
   }
 
+  /// 将背景颜色和文本样式暴露出去
   /// 显示Popup List Window
   /// [popKey] 依附的组件和BrnPopUpWindow组件共同持有的GlobalKey
   /// [data] 要显示的文本数据列表
@@ -558,9 +567,13 @@ class BrnPopupListWindow {
       double offset = 0,
       double? arrowOffset,
       BrnPopupListItemClick? onItemClick,
-      VoidCallback? onDismiss}) {
-    assert(popKey.currentContext != null && popKey.currentContext!.findRenderObject() != null);
-    if (popKey.currentContext == null || popKey.currentContext!.findRenderObject() == null) return;
+      VoidCallback? onDismiss,
+      Color backgroundColor = Colors.white,
+      TextStyle? textStyle}) {
+    assert(popKey.currentContext != null &&
+        popKey.currentContext!.findRenderObject() != null);
+    if (popKey.currentContext == null ||
+        popKey.currentContext!.findRenderObject() == null) return;
 
     double arrowHeight = 6.0;
     double borderRadius = 4;
@@ -568,10 +581,17 @@ class BrnPopupListWindow {
     double minWidth = 100;
     double maxWidth = 150;
     double maxHeight = 200;
-    Color borderColor = BrnThemeConfigurator.instance.getConfig().commonConfig.dividerColorBase;
-    Color backgroundColor = Colors.white;
-    TextStyle textStyle = TextStyle(
-        color: BrnThemeConfigurator.instance.getConfig().commonConfig.colorTextBase, fontSize: 14);
+    Color borderColor =
+        BrnThemeConfigurator.instance.getConfig().commonConfig.dividerColorBase;
+    //Color backgroundColor =  Colors.white;
+    if (textStyle == null) {
+      textStyle = TextStyle(
+          color: BrnThemeConfigurator.instance
+              .getConfig()
+              .commonConfig
+              .colorTextBase,
+          fontSize: 14);
+    }
     bool hasCloseIcon = true;
 
     Navigator.push(
@@ -588,15 +608,18 @@ class BrnPopupListWindow {
           offset: offset,
           widget: BrunoTools.isEmpty(data)
               ? Container(
-                  constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
+                  constraints:
+                      BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
                 )
               : Container(
-                  constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
+                  constraints:
+                      BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
                   child: SingleChildScrollView(
                     child: Container(
                       padding: EdgeInsets.only(top: 6, bottom: 6),
                       child: Column(
-                        children: _getItems(context, minWidth, maxWidth, null, textStyle, data!,
+                        children: _getItems(
+                            context, minWidth, maxWidth, null, textStyle, data!,
                             (index, item) {
                           if (onItemClick != null) {
                             bool isIntercept = onItemClick(index, item);
